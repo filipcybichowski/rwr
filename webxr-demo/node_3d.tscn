@@ -1,10 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://hufd0jmfdi6t"]
+[gd_scene load_steps=6 format=3 uid="uid://hufd0jmfdi6t"]
 
 [ext_resource type="Script" path="res://node_3d.gd" id="1_kxnlu"]
 [ext_resource type="ArrayMesh" uid="uid://dsbw16wn1hkph" path="res://4hz0a00fhmm8-FreeRealisticHand/hand.OBJ" id="2_0o1e5"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hdw62"]
+sky_top_color = Color(0, 0.483641, 0.912261, 1)
+sky_horizon_color = Color(0.521018, 0.65872, 0.738578, 1)
+ground_bottom_color = Color(0.0840701, 0.151241, 0.0420518, 1)
+ground_horizon_color = Color(0.521018, 0.65872, 0.738578, 1)
+
+[sub_resource type="Sky" id="Sky_3ww0l"]
+sky_material = SubResource("ProceduralSkyMaterial_hdw62")
+
+[sub_resource type="Environment" id="Environment_t30cf"]
+background_mode = 2
+sky = SubResource("Sky_3ww0l")
+tonemap_mode = 2
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_kxnlu")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_t30cf")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 
