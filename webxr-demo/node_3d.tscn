@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://hufd0jmfdi6t"]
+[gd_scene load_steps=3 format=3 uid="uid://hufd0jmfdi6t"]
 
 [ext_resource type="Script" path="res://node_3d.gd" id="1_kxnlu"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_oufh5"]
-size = Vector3(0.1, 0.1, 0.1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_0b7si"]
-size = Vector3(0.1, 0.1, 0.1)
+[ext_resource type="ArrayMesh" uid="uid://dsbw16wn1hkph" path="res://4hz0a00fhmm8-FreeRealisticHand/hand.OBJ" id="2_0o1e5"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_kxnlu")
@@ -19,13 +14,15 @@ script = ExtResource("1_kxnlu")
 tracker = &"left_hand"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftController"]
-mesh = SubResource("BoxMesh_oufh5")
+transform = Transform3D(-0.134435, 0.0233244, 0.975868, -0.508604, 0.821907, -0.04205, 0.874391, 0.593039, 0.0889259, -4.25056, 0.00837934, -1.02948)
+mesh = ExtResource("2_0o1e5")
 
 [node name="RightController" type="XRController3D" parent="XROrigin3D"]
 tracker = &"right_hand"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightController"]
-mesh = SubResource("BoxMesh_0b7si")
+transform = Transform3D(0.063863, 0.0396586, -0.997171, -0.552646, 0.833413, -0.00224787, 0.830966, 0.551225, 0.0751414, 4.29769, 0.0404336, -0.971345)
+mesh = ExtResource("2_0o1e5")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
