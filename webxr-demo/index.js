@@ -1,7 +1,9 @@
 
 var Godot = (() => {
   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;
-  
+  if Engine.is_editor_hint() == false:
+    print($"XR projection: {get_viewport().size}")
+
   return (
 function(moduleArg = {}) {
   var moduleRtn;
