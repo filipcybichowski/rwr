@@ -14,7 +14,7 @@ script = ExtResource("1_kxnlu")
 tracker = &"left_hand"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftController"]
-transform = Transform3D(-0.134435, 0.0233244, 0.975868, -0.508604, 0.821907, -0.04205, 0.874391, 0.593039, 0.0889259, -6.97543, 0.00837934, -1.01002)
+transform = Transform3D(-0.134435, 0.0233244, 0.975868, -0.508604, 0.821907, -0.04205, 0.874391, 0.593039, 0.0889259, -4.25056, 0.00837934, -1.02948)
 mesh = ExtResource("2_0o1e5")
 
 [node name="RightController" type="XRController3D" parent="XROrigin3D"]
