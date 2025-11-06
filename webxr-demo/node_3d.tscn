@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://hufd0jmfdi6t"]
+[gd_scene load_steps=12 format=3 uid="uid://hufd0jmfdi6t"]
 
 [ext_resource type="Script" path="res://node_3d.gd" id="1_kxnlu"]
 [ext_resource type="ArrayMesh" uid="uid://dsbw16wn1hkph" path="res://4hz0a00fhmm8-FreeRealisticHand/hand.OBJ" id="2_0o1e5"]
@@ -17,6 +17,23 @@ background_mode = 2
 sky = SubResource("Sky_3ww0l")
 tonemap_mode = 2
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_w310g"]
+size = Vector2(20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_14kwr"]
+size = Vector3(20, 0.1, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cesay"]
+albedo_color = Color(0.0862745, 0.356863, 0.145098, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6iyik"]
+size = Vector3(8, 5, 4)
+
+[sub_resource type="Skin" id="Skin_oskdk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_du7b3"]
+size = Vector3(8, 5, 4)
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_kxnlu")
 
@@ -31,14 +48,14 @@ environment = SubResource("Environment_t30cf")
 tracker = &"left_hand"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftController"]
-transform = Transform3D(-0.134435, 0.0233244, 0.975868, -0.508604, 0.821907, -0.04205, 0.874391, 0.593039, 0.0889259, -4.25056, 0.00837934, -1.02948)
+transform = Transform3D(-0.13904, 0.0354728, 0.99041, -0.517851, 0.889901, -0.0972128, 0.889955, 0.523362, 0.0981675, -4.52758, 2.60992, -0.776761)
 mesh = ExtResource("2_0o1e5")
 
 [node name="RightController" type="XRController3D" parent="XROrigin3D"]
 tracker = &"right_hand"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightController"]
-transform = Transform3D(0.063863, 0.0396586, -0.997171, -0.552646, 0.833413, -0.00224787, 0.830966, 0.551225, 0.0751414, 4.29769, 0.0404336, -0.971345)
+transform = Transform3D(0.063863, 0.0396586, -0.997171, -0.552646, 0.833413, -0.00224787, 0.830966, 0.551225, 0.0751414, 4.453, 3, -0.433854)
 mesh = ExtResource("2_0o1e5")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -47,3 +64,27 @@ mesh = ExtResource("2_0o1e5")
 offset_right = 8.0
 offset_bottom = 8.0
 text = "Enter VR"
+
+[node name="Level" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0173159, -0.00495172, 0.0157079)
+mesh = SubResource("PlaneMesh_w310g")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Level/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0173159, 0.00495172, -0.0157079)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, -0.00969017, -0.00291348, 0.00976157)
+shape = SubResource("BoxShape3D_14kwr")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.261627, 2.37013, -6.02003)
+material_override = SubResource("StandardMaterial3D_cesay")
+mesh = SubResource("BoxMesh_6iyik")
+skin = SubResource("Skin_oskdk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Level/MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/MeshInstance3D2/StaticBody3D"]
+shape = SubResource("BoxShape3D_du7b3")
