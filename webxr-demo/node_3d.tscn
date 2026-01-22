@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://hufd0jmfdi6t"]
+[gd_scene load_steps=21 format=3 uid="uid://hufd0jmfdi6t"]
 
 [ext_resource type="Script" path="res://node_3d.gd" id="1_kxnlu"]
 [ext_resource type="ArrayMesh" uid="uid://dsbw16wn1hkph" path="res://4hz0a00fhmm8-FreeRealisticHand/hand.OBJ" id="2_0o1e5"]
+[ext_resource type="Script" path="res://lokomocja.gd" id="2_xttv7"]
+[ext_resource type="Script" path="res://teleport.gd" id="3_u7mcu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hdw62"]
 sky_top_color = Color(0, 0.483641, 0.912261, 1)
@@ -18,6 +20,11 @@ sky = SubResource("Sky_3ww0l")
 ambient_light_source = 3
 tonemap_mode = 2
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_xhaaj"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.01
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_w310g"]
 size = Vector2(20, 20)
 
@@ -25,15 +32,32 @@ size = Vector2(20, 20)
 size = Vector3(20, 0.1, 20)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cesay"]
-albedo_color = Color(0.0862745, 0.356863, 0.145098, 1)
+albedo_color = Color(0.528079, 1.46317e-05, 0.386967, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_6iyik"]
 size = Vector3(8, 5, 4)
 
-[sub_resource type="Skin" id="Skin_oskdk"]
+[sub_resource type="Skin" id="Skin_3cpfu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_du7b3"]
 size = Vector3(8, 5, 4)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ds2vl"]
+radius = 2.0
+height = 4.0
+
+[sub_resource type="Skin" id="Skin_oskdk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iv772"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fi0yq"]
+top_radius = 0.0
+bottom_radius = 1.535
+height = 4.97
+
+[sub_resource type="Skin" id="Skin_jygm0"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7vjfe"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_kxnlu")
@@ -42,25 +66,33 @@ script = ExtResource("1_kxnlu")
 environment = SubResource("Environment_t30cf")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
+script = ExtResource("2_xttv7")
+move_speed = 2.0
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
-transform = Transform3D(1, 0, 0, 0, 0.979607, -0.200924, 0, 0.200924, 0.979607, 0, 4.18288, 13.8276)
 
 [node name="LeftController" type="XRController3D" parent="XROrigin3D"]
 tracker = &"left_hand"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftController"]
-transform = Transform3D(-0.0669104, 0.0170668, 0.476387, -0.249206, 0.428152, -0.0467594, 0.428275, 0.251801, 0.0472186, -4.52758, 2.60992, -0.776761)
+transform = Transform3D(-0.0669104, 0.0170668, 0.476387, -0.249206, 0.428152, -0.0467594, 0.428275, 0.251801, 0.0472186, -2.04747, 1, -1.24145)
 mesh = ExtResource("2_0o1e5")
 
 [node name="RightController" type="XRController3D" parent="XROrigin3D"]
 tracker = &"right_hand"
+script = ExtResource("3_u7mcu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightController"]
-transform = Transform3D(0.0319315, 0.0198293, -0.498585, -0.276323, 0.416707, -0.00112397, 0.415483, 0.275613, 0.0375707, 4.453, 3, -0.433854)
+transform = Transform3D(0.0319315, 0.0198293, -0.498585, -0.276323, 0.416707, -0.00112397, 0.415483, 0.275613, 0.0375707, 1.5, 1, -1.54924)
 mesh = ExtResource("2_0o1e5")
 
 [node name="TeleportRay" type="RayCast3D" parent="XROrigin3D/RightController"]
+transform = Transform3D(0.99119, 0, 0.132447, 0, 1, 0, -0.132447, 0, 0.99119, 3.55283, 0, 8.2822)
+target_position = Vector3(0, 0, -10)
+
+[node name="TeleportMarker" type="MeshInstance3D" parent="XROrigin3D/RightController"]
+visible = false
+mesh = SubResource("CylinderMesh_xhaaj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -72,10 +104,13 @@ text = "Enter VR"
 [node name="Level" type="Node3D" parent="."]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level"]
-transform = Transform3D(-0.182179, -0.983218, -0.0096638, -0.873108, 0.157241, 0.461473, -0.452209, 0.0925082, -0.887102, -0.877, 10.8018, -21.4137)
+transform = Transform3D(-0.182179, -0.983218, -0.0096638, -0.873108, 0.157241, 0.461473, -0.452209, 0.0925082, -0.887102, 4.76781, 13.508, -20.0674)
 light_energy = 0.901
 shadow_enabled = true
-directional_shadow_mode = 0
+directional_shadow_mode = 1
+directional_shadow_split_1 = 0.282
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 20.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Level"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0173159, -0.00495172, 0.0157079)
@@ -85,16 +120,38 @@ mesh = SubResource("PlaneMesh_w310g")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0173159, 0.00495172, -0.0157079)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/MeshInstance3D/StaticBody3D"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, -0.00969017, -0.00291348, 0.00976157)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00969017, -0.00291348, 0.00976157)
 shape = SubResource("BoxShape3D_14kwr")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.261627, 2.37013, -6.02003)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.173161, 2.37013, -6.02003)
 material_override = SubResource("StandardMaterial3D_cesay")
 mesh = SubResource("BoxMesh_6iyik")
-skin = SubResource("Skin_oskdk")
+skin = SubResource("Skin_3cpfu")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Level/MeshInstance3D2"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/MeshInstance3D2/StaticBody3D"]
 shape = SubResource("BoxShape3D_du7b3")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Level"]
+transform = Transform3D(-0.758833, -0.234322, -0.640661, 0.643707, 0.0294253, -0.765131, 0.0990691, -1.98601, 0.0642528, 7.6227, 1.87407, -1.37857)
+material_override = SubResource("StandardMaterial3D_cesay")
+mesh = SubResource("CapsuleMesh_ds2vl")
+skin = SubResource("Skin_oskdk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Level/MeshInstance3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/MeshInstance3D3/StaticBody3D"]
+shape = SubResource("CapsuleShape3D_iv772")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Level"]
+transform = Transform3D(-1.4242, 0, 0.31386, 0, 2, 0, -0.47079, 0, -0.949469, -7.70533, 5.11043, -4.1101)
+material_override = SubResource("StandardMaterial3D_cesay")
+mesh = SubResource("CylinderMesh_fi0yq")
+skin = SubResource("Skin_jygm0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Level/MeshInstance3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/MeshInstance3D4/StaticBody3D"]
+shape = SubResource("CylinderShape3D_7vjfe")
