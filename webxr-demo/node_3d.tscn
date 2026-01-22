@@ -74,7 +74,7 @@ move_speed = 2.0
 tracker = &"left_hand"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftController"]
-transform = Transform3D(-0.0133821, 0.00339963, 0.0950794, -0.0498412, 0.0852858, -0.00933243, 0.085655, 0.0501575, 0.00942409, -0.00389421, 0, 0)
+transform = Transform3D(-0.0535283, 0.0135985, 0.380318, -0.199365, 0.341143, -0.0373297, 0.34262, 0.20063, 0.0376964, -0.00389421, 0, 0)
 gi_mode = 0
 mesh = ExtResource("2_0o1e5")
 
@@ -83,7 +83,7 @@ tracker = &"right_hand"
 script = ExtResource("3_u7mcu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightController"]
-transform = Transform3D(0.00638629, 0.00396585, -0.099717, -0.0552646, 0.0833413, -0.0002248, 0.0830966, 0.0551226, 0.00751414, 0, 0, 0)
+transform = Transform3D(0.0255452, 0.0158634, -0.398868, -0.221058, 0.333365, -0.0008992, 0.332386, 0.22049, 0.0300565, 0, 0, 0)
 mesh = ExtResource("2_0o1e5")
 
 [node name="TeleportRay" type="RayCast3D" parent="XROrigin3D/RightController"]
