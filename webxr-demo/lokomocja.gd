@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 	# 3. Obliczamy kierunek ruchu
 	# v.y to góra/dół na padzie, v.x to prawo/lewo
 	var dir := Vector3.ZERO
-	dir += fwd * (-v.y) + right * (v.x) # -v.y bo w Godot "do przodu" to ujemne Z
+	dir += fwd * (v.y) + right * (v.x) # -v.y bo w Godot "do przodu" to ujemne Z
 
 	# 4. Przesuwamy gracza
 	if dir.length() > 0.0:
